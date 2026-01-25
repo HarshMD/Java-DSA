@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BST/BST.iml" filepath="$PROJECT_DIR$/BST/BST.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java DSA.iml" filepath="$PROJECT_DIR$/Java DSA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Priority Queue/Priority Queue.iml" filepath="$PROJECT_DIR$/Priority Queue/Priority Queue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StackBasedTreeTrav/StackBasedTreeTrav.iml" filepath="$PROJECT_DIR$/StackBasedTreeTrav/StackBasedTreeTrav.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Trees/Trees.iml" filepath="$PROJECT_DIR$/Trees/Trees.iml" />
+    </modules>
+  </component>
+</project>
