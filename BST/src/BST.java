@@ -1,144 +1,97 @@
-import java.util.Scanner;
-
 public class BST {
     Node root = null;
-    Node start = null;
-    Node end = null;
-    Scanner sc = new Scanner(System.in);
 
-    public void insertData(int data){
-        Node temp = new Node();
-        temp.data = data;
-        temp.left = null;
-        temp.right = null;
-        Node trav = root;
-
-        if(root == null){
-            root = temp;
-            return;
-        }
-
-        while(trav != null){
-            if(temp.data < trav.data){
-                if(trav.left != null){
-                    trav = trav.left;
-                }
-                else {
-                    trav.left = temp;
-                    break;
-                }
-            } else if (temp.data > trav.data) {
-                if(trav.right != null){
-                    trav = trav.right;
-                }
-                else {
-                    trav.right = temp;
-                    break;
-                }
-            }
-        }
+    // INSERT
+    public void insertData(int data) {
+        root = insertRec(root, data);
     }
 
-//    public void enqueue(Node temp) {
-//        if (start == null) {
-//            start = temp;
-//            end = temp;
-//        } else {
-//            end.next = temp;
-//            end = temp;
-//        }
-//    }
+    private Node insertRec(Node root, int data) {
+        if (root == null) {
+            return new Node(data);
+        }
 
-    public void dequeue(){
-        Node temp = start;
-
-        if(start == null){
-            System.out.println("Tree is empty");
+        if (data < root.data) {
+            root.left = insertRec(root.left, data);
+        } else if (data > root.data) {
+            root.right = insertRec(root.right, data);
         } else {
-            System.out.println("Deleted node is:" + end.data);
-            end = null;
+            System.out.println("Duplicate value not allowed");
+        }
+
+        return root;
+    }
+
+    // DELETE
+    public void deleteData(int data) {
+        root = deleteRec(root, data);
+    }
+
+    private Node deleteRec(Node root, int data) {
+        if (root == null) {
+            System.out.println("Value not found");
+            return null;
+        }
+
+        if (data < root.data) {
+            root.left = deleteRec(root.left, data);
+        }
+        else if (data > root.data) {
+            root.right = deleteRec(root.right, data);
+        }
+        else {
+            // Case 1: No child
+            if (root.left == null && root.right == null) {
+                return null;
+            }
+
+            // Case 2: One child
+            if (root.left == null) {
+                return root.right;
+            }
+            if (root.right == null) {
+                return root.left;
+            }
+
+            // Case 3: Two children
+            Node successor = findMin(root.right);
+            root.data = successor.data;
+            root.right = deleteRec(root.right, successor.data);
+        }
+        return root;
+    }
+
+    private Node findMin(Node root) {
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
+    }
+
+    // PREORDER
+    public void preOrder(Node root) {
+        if (root != null) {
+            System.out.print(root.data + " ");
+            preOrder(root.left);
+            preOrder(root.right);
         }
     }
 
-    public void display(){
-        int choice = 0;
-        Node n;
-        n = root;
-
-        while(choice != 4){
-            System.out.println("**** Display Menu ****");
-            System.out.println("1. PreOrder");
-            System.out.println("2. Inorder");
-            System.out.println("3. Postorder");
-            System.out.println("4. Exit");
-            System.out.print("Enter your Display choice: ");
-            choice = sc.nextInt();
-
-            if(choice == 1){
-                System.out.println("Preorder data");
-                preOrder(n);
-            }
-            else if(choice == 2){
-                System.out.println("Inorder data");
-                inOrder(n);
-            }
-            else if(choice == 3){
-                System.out.println("Postorder data");
-                postOrder(n);
-            }
-            else if(choice == 4){
-                System.out.println("Exiting");
-            }
-            else{
-                System.out.println("Invalid choice entered.");
-            }
+    // INORDER
+    public void inOrder(Node root) {
+        if (root != null) {
+            inOrder(root.left);
+            System.out.print(root.data + " ");
+            inOrder(root.right);
         }
     }
 
-    public void preOrder(Node n){
-        if(n == null) return;
-        else{
-            System.out.println(n.data);
-            preOrder(n.left);
-            preOrder(n.right);
+    // POSTORDER
+    public void postOrder(Node root) {
+        if (root != null) {
+            postOrder(root.left);
+            postOrder(root.right);
+            System.out.print(root.data + " ");
         }
     }
-
-    public void inOrder(Node n){
-        if(n == null) return;
-        else{
-            inOrder(n.left);
-            System.out.println(n.data);
-            inOrder(n.right);
-        }
-    }
-
-    public void postOrder(Node n){
-        if(n == null) return;
-        else{
-            postOrder(n.left);
-            postOrder(n.right);
-            System.out.println(n.data);
-        }
-    }
-//
-//    public void delete(){
-//        if(start == null){
-//            System.out.println("Tree is empty");
-//            return;
-//        }
-//
-//        Node temp = start;
-//        while(temp != null){
-//
-//            if(temp.next == end){
-//                System.out.println("Deleted element is: " + end.data);
-//                end = null;
-//                temp.next = null;
-//                end = temp;
-//                return;
-//            }
-//            temp = temp.next;
-//        }
-//    }
 }
